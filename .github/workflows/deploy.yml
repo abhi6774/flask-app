@@ -52,8 +52,9 @@ on:
 
 env:
   PROJECT_ID: iot-project-395409 # TODO: update Google Cloud project id
-  SERVICE: mesher # TODO: update Cloud Run service name
-  REGION: us-central1-a # TODO: update Cloud Run service region
+  SERVICE: 'hello-cloud-run' # TODO: update Cloud Run service name
+  REGION: us-central1-a
+  IMAGE: 'gcr.io/cloudrun/hello' # TODO: update Cloud Run service region
 
 jobs:
   deploy:
@@ -65,7 +66,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Google Auth
         id: auth
@@ -80,7 +81,7 @@ jobs:
         uses: google-github-actions/deploy-cloudrun@v1
         with:
           service: ${{ env.SERVICE }}
-          region: ${{ env.REGION }}
+          image: ${{ env.IMAGE }}
           # NOTE: If required, update to the appropriate source folder
           source: ./
 
